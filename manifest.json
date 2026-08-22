@@ -1,0 +1,22 @@
+{
+  "name": "Foco",
+  "short_name": "Foco",
+  "description": "Aplicativo de produtividade com períodos de foco de 30 minutos.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#f3f4f6",
+  "theme_color": "#111827",
+  "orientation": "portrait",
+  "icons":[
+    {
+      "src":"./icon-1200.png",
+      "sizes":"1200x1200",
+      "type":"image/png"
+    },
+    {
+      "src":"./icon-900.png",
+      "sizes":"900x900",
+      "type":"image/png"
+    }
+  ]
+}
