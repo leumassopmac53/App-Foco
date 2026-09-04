@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Foco</title>
+
+  <meta name="theme-color" content="#111827">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="card">
+    <section>
+      <img src="icon-900.png" id="logo">
+      <h1>Foco</h1>
+    </section>
+
+    <p>pontos: <span id="pointsDisplay">0</span></p>
+  </header>
+  <main class="card">
+    <form id="taskForm">
+      <label for="taskInput">
+        Qual tarefa você quer realizar?
+      </label>
+
+      <div class="input-area">
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="Ex: Estudar JavaScript"
+          maxlength="120"
+          required
+        >
+
+        <button type="submit">
+          Começar
+        </button>
+      </div>
+    </form>
+
+    <section id="focusSection">
+
+      <p class="label">Tarefa atual</p>
+
+      <h2 id="taskDisplay"></h2>
+
+      <div id="timer">
+        30:00
+      </div>
+
+      <p id="status">
+        Período de foco em andamento.
+      </p>
+
+      <button id="restartButton" type="button">
+        Iniciar novamente
+      </button>
+    </section>
+  </main>
+
+  <footer class="card"></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
