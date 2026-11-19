@@ -35,11 +35,11 @@ export default class Task {
     const {id, title, points, completed} = task
 
     function validateType(vari, type){
-      if(typeof vari !== type) throw new DomainError(`type of ${vari} invalid`)
+      if(typeof vari !== type) throw new DomainError(`type of property invalid`)
     }
 
     function validateLength(vari, length){
-      if(vari.length > length) throw new DomainError(`${vari} length very large`)
+      if(vari.length > length) throw new DomainError(`property length very large`)
     }
 
     if(typeof task !== 'object') throw new DomainError("not's Object")
@@ -47,7 +47,7 @@ export default class Task {
     if(task === null) throw new DomainError("not's Object")
 
     for(let k of Object.keys(task)){
-      if(!['id','title', 'points', 'completed'].includes(k)) throw new DomainError(`property ${k} invalid`)
+      if(!['id','title', 'points', 'completed'].includes(k)) throw new DomainError(`property invalid`)
     }
 
     validateType(id, 'string')
