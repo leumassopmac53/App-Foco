@@ -1,0 +1,15 @@
+{
+  "name": "app-foco",
+  "version": "1.0.0",
+  "description": "Um aplicativo voltado a produtividade",
+  "license": "UNLICENSED",
+  "author": "leumassopmac",
+  "type": "module",
+  "imports": {
+    "#domain/*": "./Core/Domain/*",
+    "#errors/*": "./Core/Erros/*"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
