@@ -7,7 +7,7 @@
   "type": "module",
   "imports": {
     "#domain/*": "./Core/Domain/*",
-    "#errors/*": "./Core/Erros/*"
+    "#errors/*": "./Core/Errors/*"
   },
   "scripts": {
     "test": "node --test"
