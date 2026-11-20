@@ -50,18 +50,18 @@ test('user-case: Create a Task', t => {
   t.test('create a Task invalid: id too large', () => {
     const task = createATask({ ...task_valid, id: 'a'.repeat(1000) })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('property length very large', task)
   })
 
   t.test('create a Task invalid: title too large', () => {
     const task = createATask({ ...task_valid, title: 'Test '.repeat(1000) })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('property length very large', task)
   })
 
   t.test('create a Task invalid: points too large', () => {
     const task = createATask({ ...task_valid, points: 999999999 })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('property length very large', task)
   })
 })

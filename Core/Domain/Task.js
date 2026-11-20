@@ -51,15 +51,18 @@ export default class Task {
     }
 
     validateType(id, 'string')
+    
     validateType(title, 'string')
+    
     validateType(points, 'number')
+    if(!Number.isFinite(points)) throw new DomainError("points not's number")
+    if(points < 0) throw new DomainError('points value invalid')
+    
     validateType(completed, 'boolean')
 
     validateLength(id, 100)
     validateLength(title, 50)
-
-    if(!Number.isFinite(points)) throw new DomainError("points not's number")
-    if(points < 0) throw new DomainError('points value invalid')
+    if(points > 1000) throw new DomainError('property length very large')
   }
 
   get id(){

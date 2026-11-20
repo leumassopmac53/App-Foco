@@ -8,7 +8,6 @@ export default function createTask(t){
   }
   catch(erro){
     if(erro.name === 'DomainError'){
-      console.log(erro.name)
       return erro.message
     }
 
