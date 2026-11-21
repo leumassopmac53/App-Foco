@@ -1,9 +1,9 @@
-import test from 'node:test'
+import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import Task from '#domain/Task.js'
 import createATask from '#user-cases/create-Task.js'
 
-test('user-case: Create a Task', t => {
+describe('Use Case Suite: Create a Task', () => {
   const task_valid = {
     id: 'Test-createATask',
     title: 'Test',
@@ -11,57 +11,55 @@ test('user-case: Create a Task', t => {
     completed: false
   }
 
-  t.test('create a Task', () => {
-    const task = createATask(task_valid)
-
-    assert.ok(task instanceof Task)
+  it('create a Task', async () => {
+    const task = await createATask(task_valid)
   })
 
-  t.test('create a Task invalid: parameter is a string', () => {
-    const task = createATask('invalid-string-parameter')
+  it('create a Task invalid: parameter is a string', async () => {
+    const task = await createATask('invalid-string-parameter')
 
-    assert.equal("not's Object", task)
+    assert.equal("Not an object", task.message)
   })
 
-  t.test('create a Task invalid: type invalid id', () => {
-    const task = createATask({...task_valid, id: 12})
+  it('create a Task invalid: type invalid id', async () => {
+    const task = await createATask({ ...task_valid, id: 12 })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('Invalid property type: id', task.message)
   })
 
-  t.test('create a Task invalid: type invalid title', () => {
-    const task = createATask({...task_valid, title: 10})
+  it('create a Task invalid: type invalid title', async () => {
+    const task = await createATask({ ...task_valid, title: 10 })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('Invalid property type: title', task.message)
   })
 
-  t.test('create a Task invalid: type invalid points', () => {
-    const task = createATask({...task_valid, points: '10'})
+  it('create a Task invalid: type invalid points', async () => {
+    const task = await createATask({ ...task_valid, points: '10' })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('Invalid property type: points', task.message)
   })
 
-  t.test('create a Task invalid: type invalid completed', () => {
-    const task = createATask({...task_valid, completed: 0})
+  it('create a Task invalid: type invalid completed', async () => {
+    const task = await createATask({ ...task_valid, completed: 0 })
 
-    assert.equal('type of property invalid', task)
+    assert.equal('Invalid property type: completed', task.message)
   })
 
-  t.test('create a Task invalid: id too large', () => {
-    const task = createATask({ ...task_valid, id: 'a'.repeat(1000) })
+  it('create a Task invalid: id too large', async () => {
+    const task = await createATask({ ...task_valid, id: 'a'.repeat(1000) })
 
-    assert.equal('property length very large', task)
+    assert.equal('Property length is too large: id', task.message)
   })
 
-  t.test('create a Task invalid: title too large', () => {
-    const task = createATask({ ...task_valid, title: 'Test '.repeat(1000) })
+  it('create a Task invalid: title too large', async () => {
+    const task = await createATask({ ...task_valid, title: 'Test '.repeat(1000) })
 
-    assert.equal('property length very large', task)
+    assert.equal('Property length is too large: title', task.message)
   })
 
-  t.test('create a Task invalid: points too large', () => {
-    const task = createATask({ ...task_valid, points: 999999999 })
+  it('create a Task invalid: points too large', async () => {
+    const task = await createATask({ ...task_valid, points: 999999999 })
 
-    assert.equal('property length very large', task)
+    assert.equal('Property length is too large: points', task.message)
   })
 })

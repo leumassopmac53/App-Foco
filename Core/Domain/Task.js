@@ -34,35 +34,36 @@ export default class Task {
   #validateInput(task){
     const {id, title, points, completed} = task
 
-    function validateType(vari, type){
-      if(typeof vari !== type) throw new DomainError(`type of property invalid`)
+    function validateType(vari, type, n){
+      if(typeof vari !== type) throw new DomainError(n)
     }
 
-    function validateLength(vari, length){
-      if(vari.length > length) throw new DomainError(`property length very large`)
+    function validateLength(vari, length, n){
+      if(vari.trim().length > length) throw new DomainError(n)
+      else if(vari.length === 0) throw new DomainError(n)
     }
 
-    if(typeof task !== 'object') throw new DomainError("not's Object")
-    if(Array.isArray(task)) throw new DomainError("not's Object")
-    if(task === null) throw new DomainError("not's Object")
+    if(typeof task !== 'object') throw new DomainError("Not an object")
+    if(Array.isArray(task)) throw new DomainError("Not an object")
+    if(task === null) throw new DomainError("Not an object")
 
     for(let k of Object.keys(task)){
-      if(!['id','title', 'points', 'completed'].includes(k)) throw new DomainError(`property invalid`)
+      if(!['id','title', 'points', 'completed'].includes(k)) throw new DomainError(`Property out of scope`)
     }
 
-    validateType(id, 'string')
+    validateType(id, 'string', "Invalid property type: id")
     
-    validateType(title, 'string')
+    validateType(title, 'string', "Invalid property type: title")
     
-    validateType(points, 'number')
-    if(!Number.isFinite(points)) throw new DomainError("points not's number")
-    if(points < 0) throw new DomainError('points value invalid')
+    validateType(points, 'number', "Invalid property type: points")
+    if(!Number.isFinite(points)) throw new DomainError("Points is not a number")
+    if(points < 0) throw new DomainError("Invalid points value")
     
-    validateType(completed, 'boolean')
+    validateType(completed, 'boolean', "Invalid property type: completed")
 
-    validateLength(id, 100)
-    validateLength(title, 50)
-    if(points > 1000) throw new DomainError('property length very large')
+    validateLength(id, 100, "Property length is too large: id")
+    validateLength(title, 50, "Property length is too large: title")
+    if(points > 1000) throw new DomainError("Property length is too large: points")
   }
 
   get id(){

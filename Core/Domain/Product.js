@@ -18,7 +18,7 @@ class Product {
   }
 
   #validate(product){
-    function validateType(o, t, m = 'type'){
+    function validateType(o, t, m){
       if(typeof o !== t) throw new DomainError(m)
     }
 
@@ -27,25 +27,25 @@ class Product {
       else if(o.length === 0) throw new DomainError(m)
     }
     
-    if(typeof product !== 'object') throw new DomainError("not's object")
-    if(Array.isArray(product)) throw new DomainError("not's object")
-    if(product === null) throw new DomainError("not's object")
+    if(typeof product !== 'object') throw new DomainError('Not an object')
+    if(Array.isArray(product)) throw new DomainError('Not an object')
+    if(product === null) throw new DomainError('Not an object')
     
     const {id, name, description, category} = product
 
     for(let k of Object.keys(product)){
-      if(!['id', 'name', 'description', 'category'].includes(k)) throw new DomainError('property out scope')
+      if(!['id', 'name', 'description', 'category'].includes(k)) throw new DomainError('Property out of scope')
     }
 
-    validateType(id, 'string', 'type of id invalid')
-    validateType(name, 'string', 'type of name invalid')
-    validateType(description, 'string', 'type of description invalid')
-    validateType(category, 'string', 'type of category invalid')
+    validateType(id, 'string', 'Invalid property type: id')
+    validateType(name, 'string', 'Invalid property type: name')
+    validateType(description, 'string', 'Invalid property type: description')
+    validateType(category, 'string', 'Invalid property type: category')
 
-    validateLength(id, 100, 'id length large')
-    validateLength(name, 50, 'name length large')
-    validateLength(category, 20, 'category length large')
-    validateLength(description, 150, 'description length large')
+    validateLength(id, 100, 'Property length is too large: id')
+    validateLength(name, 50, 'Property length is too large: name')
+    validateLength(category, 20, 'Property length is too large: category')
+    validateLength(description, 150, 'Property length is too large: description')
   }
 
   setName(i){

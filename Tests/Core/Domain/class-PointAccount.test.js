@@ -1,110 +1,112 @@
-import test from 'node:test'
+import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import PointAccount from '#domain/PointAccount.js'
 
-test('Create instance PointAccount',()=>{
-  const Balance = new PointAccount()
-})
-
-test('PointAccount methods',t =>{
-  t.test('get balance',()=>{
+describe('Domain: PointAccount Suite', () => {
+  it('Create instance PointAccount', () => {
     const Balance = new PointAccount()
-
-    Balance.credit(10)
-
-    assert.ok(Balance.balance)
   })
-  
-  t.test('credit',()=>{
-    const Balance = new PointAccount()
 
-    Balance.credit(10)
+  describe('PointAccount methods', () => {
+    it('get balance', () => {
+      const Balance = new PointAccount()
 
-    assert.strictEqual(10,Balance.balance)
-  })
-  
-  t.test('credit: very big',()=>{
-    const Balance = new PointAccount()
+      Balance.credit(10)
 
-    let modified = false
+      assert.ok(Balance.balance)
+    })
     
-    if(Balance.credit(100)) modified = true
+    it('credit', () => {
+      const Balance = new PointAccount()
 
-    assert.strictEqual(modified, false)
-  })
-  
-  t.test('credit: type invalid(string)',()=>{
-    const Balance = new PointAccount()
+      Balance.credit(10)
 
-    let modified = false
-
-    if(Balance.credit('ola amigo')) modified = true
-
-    assert.strictEqual(false, modified)
-  })
-  
-  t.test('credit: type invalid(boolean)',()=>{
-    const Balance = new PointAccount()
-
-    let modified = false
-
-    if(Balance.credit(true)) modified = true
-
-    assert.strictEqual(false, modified)
-  })
-  
-  t.test('credit: type invalid(NaN)',()=>{
-    const Balance = new PointAccount()
-
-    let modified = false
-
-    if(Balance.credit(NaN)) modified = true
-
-    assert.strictEqual(false, modified)
-  })
-  
-  t.test('debit',()=>{
-    const Balance = new PointAccount()
-
-    Balance.credit(10)
-    Balance.debit(10)
-
-    assert.strictEqual(0,Balance.balance)
-  })
-  
-  t.test('debit: type invalid(string)',()=>{
-    const Balance = new PointAccount()
-
-    let modified = false
+      assert.strictEqual(10, Balance.balance)
+    })
     
-    Balance.credit(30)
+    it('credit: very big', () => {
+      const Balance = new PointAccount()
 
-    if(Balance.debit('ola amigo')) modified = true
+      let modified = false
+      
+      if (Balance.credit(100)) modified = true
 
-    assert.strictEqual(false, modified)
-  })
-  
-  t.test('debit: type invalid(boolean)',()=>{
-    const Balance = new PointAccount()
-
-    let modified = false
+      assert.strictEqual(modified, false)
+    })
     
-    Balance.credit(30)
+    it('credit: type invalid(string)', () => {
+      const Balance = new PointAccount()
 
-    if(Balance.debit(true)) modified = true
+      let modified = false
 
-    assert.strictEqual(false, modified)
-  })
-  
-  t.test('debit: type invalid(NaN)',()=>{
-    const Balance = new PointAccount()
+      if (Balance.credit('ola amigo')) modified = true
 
-    let modified = false
-
-    Balance.credit(30)
+      assert.strictEqual(false, modified)
+    })
     
-    if(Balance.debit(NaN)) modified = true
+    it('credit: type invalid(boolean)', () => {
+      const Balance = new PointAccount()
 
-    assert.strictEqual(false, modified)
+      let modified = false
+
+      if (Balance.credit(true)) modified = true
+
+      assert.strictEqual(false, modified)
+    })
+    
+    it('credit: type invalid(NaN)', () => {
+      const Balance = new PointAccount()
+
+      let modified = false
+
+      if (Balance.credit(NaN)) modified = true
+
+      assert.strictEqual(false, modified)
+    })
+    
+    it('debit', () => {
+      const Balance = new PointAccount()
+
+      Balance.credit(10)
+      Balance.debit(10)
+
+      assert.strictEqual(0, Balance.balance)
+    })
+    
+    it('debit: type invalid(string)', () => {
+      const Balance = new PointAccount()
+
+      let modified = false
+      
+      Balance.credit(30)
+
+      if (Balance.debit('ola amigo')) modified = true
+
+      assert.strictEqual(false, modified)
+    })
+    
+    it('debit: type invalid(boolean)', () => {
+      const Balance = new PointAccount()
+
+      let modified = false
+      
+      Balance.credit(30)
+
+      if (Balance.debit(true)) modified = true
+
+      assert.strictEqual(false, modified)
+    })
+    
+    it('debit: type invalid(NaN)', () => {
+      const Balance = new PointAccount()
+
+      let modified = false
+
+      Balance.credit(30)
+      
+      if (Balance.debit(NaN)) modified = true
+
+      assert.strictEqual(false, modified)
+    })
   })
 })

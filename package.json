@@ -8,7 +8,8 @@
   "imports": {
     "#domain/*": "./Core/Domain/*",
     "#errors/*": "./Core/Errors/*",
-    "#user-cases/*": "./Core/User-cases/*"
+    "#user-cases/*": "./Core/User-cases/*",
+    "#repository/*": "./Core/Repositories/*"
   },
   "scripts": {
     "test": "node --test"

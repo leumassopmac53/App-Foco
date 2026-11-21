@@ -1,10 +1,10 @@
-import test from 'node:test'
+import { describe, it } from 'node:test'
 import assert from 'node:assert'
 
 import Marcket from '#domain/Marcket.js'
 import Product from '#domain/Product.js'
 
-test('class Marcket',t =>{
+describe('Domain: Marcket Suite', () => {
   const Poco_m3 = {
     id: 'Poco_m3-01',
     name: 'Poco_m3',
@@ -12,60 +12,68 @@ test('class Marcket',t =>{
     category: 'smarphone'
   }
   
-  t.test('add a product', ()=>{
-    const product = new Product(Poco_m3)
-    const marcket = new Marcket()
+  describe('class Marcket', () => {
+    it("can't add non-product", () => {
+      const marcket = new Marcket()
 
-    assert.equal(marcket.add(product), true)
-  })
-  
-  t.test('remove a product', ()=>{
-    const product = new Product(Poco_m3)
-    const marcket = new Marcket()
-
-    marcket.add(product)
+      assert.equal(marcket.add("not an product"), false)
+    })
     
-    assert.equal(marcket.remove(product), true)
-  })
+    it('add a product', () => {
+      const product = new Product(Poco_m3)
+      const marcket = new Marcket()
 
-  t.test("can't alter product of products",()=>{
-    assert.throws(()=>{
+      assert.equal(marcket.add(product), true)
+    })
+    
+    it('remove a product', () => {
+      const product = new Product(Poco_m3)
+      const marcket = new Marcket()
+
+      marcket.add(product)
+      
+      assert.equal(marcket.remove(product), true)
+    })
+
+    it("can't alter product of products", () => {
+      assert.throws(() => {
+        const product = new Product(Poco_m3)
+        const marcket = new Marcket()
+
+        marcket.add(product)
+
+        marcket.products[product.id].name = 'hello wolrd'
+      }, TypeError)
+    })
+    
+    it("can't alter products of marcket", () => {
+      assert.throws(() => {
+        const product = new Product(Poco_m3)
+        const marcket = new Marcket()
+
+        marcket.add(product)
+
+        marcket.products = {}
+      }, TypeError)
+    })
+
+    it("can't double adds product", () => {
       const product = new Product(Poco_m3)
       const marcket = new Marcket()
 
       marcket.add(product)
 
-      marcket.products[product.id].name = 'hello wolrd'
-    }, TypeError)
-  })
-  
-  t.test("can't alter products of marcket",()=>{
-    assert.throws(()=>{
+      assert.equal(marcket.add(product), false)
+    })
+    
+    it("can't double removes product", () => {
       const product = new Product(Poco_m3)
       const marcket = new Marcket()
 
       marcket.add(product)
+      marcket.remove(product)
 
-      marcket.products = {}
-    }, TypeError)
-  })
-
-  t.test("cant'n double adds product",()=>{
-    const product = new Product(Poco_m3)
-    const marcket = new Marcket()
-
-    marcket.add(product)
-
-    assert.equal(marcket.add(product), false)
-  })
-  
-  t.test("cant'n double removes product",()=>{
-    const product = new Product(Poco_m3)
-    const marcket = new Marcket()
-
-    marcket.add(product)
-    marcket.remove(product)
-
-    assert.equal(marcket.remove(product), false)
+      assert.equal(marcket.remove(product), false)
+    })
   })
 })

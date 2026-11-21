@@ -1,17 +1,31 @@
 import Task from '#domain/Task.js'
+import TaskRepository from '#repository/repository-Task.js'
 
-export default function createTask(t){
+export default async function createTask(t){
   try {
     const task = new Task(t)
 
-    return task
+    const {id, title, points, completed} = task
+    
+    await TaskRepository.add({
+      id, title, points, completed
+    })
+
+    return {ok: true, message: '', name: ''}
   }
   catch(erro){
-    if(erro.name === 'DomainError'){
-      return erro.message
-    }
+    switch(erro.name){
+      case 'DomainError':
+        return {ok: true, message: erro.message, name: erro.name}
+        break
+        
+      case 'RepositoryError':
+        return {ok: true, message: erro.message, name: erro.name}
+        break
 
-    console.log(erro.name, 'my error')
-    throw erro
+      default:
+        throw erro
+        break
+    }
   }
 }
