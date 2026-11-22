@@ -2,6 +2,13 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import Task from '#domain/Task.js'
 import createATask from '#use-cases/create-Task.js'
+import repositoryTask from '#repository/repository-Task.js'
+
+let bank = {}
+
+repositoryTask.add = task =>{
+  bank[task.id] = task
+}
 
 describe('Use Case Suite: Create a Task', () => {
   const task_valid = {
@@ -13,6 +20,8 @@ describe('Use Case Suite: Create a Task', () => {
 
   it('create a Task', async () => {
     const task = await createATask(task_valid)
+
+    assert.ok(task.ok)
   })
 
   it('create a Task invalid: parameter is a string', async () => {
