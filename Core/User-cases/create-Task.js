@@ -16,11 +16,11 @@ export default async function createTask(t){
   catch(erro){
     switch(erro.name){
       case 'DomainError':
-        return {ok: true, message: erro.message, name: erro.name}
+        return {ok: false, message: erro.message, name: erro.name}
         break
         
       case 'RepositoryError':
-        return {ok: true, message: erro.message, name: erro.name}
+        return {ok: false, message: erro.message, name: erro.name}
         break
 
       default:

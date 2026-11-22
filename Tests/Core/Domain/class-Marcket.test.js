@@ -8,6 +8,7 @@ describe('Domain: Marcket Suite', () => {
   const Poco_m3 = {
     id: 'Poco_m3-01',
     name: 'Poco_m3',
+    points: 30,
     description: 'Um smarphone da redmi',
     category: 'smarphone'
   }

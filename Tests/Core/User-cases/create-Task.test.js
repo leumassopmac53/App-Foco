@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import Task from '#domain/Task.js'
-import createATask from '#user-cases/create-Task.js'
+import createATask from '#use-cases/create-Task.js'
 
 describe('Use Case Suite: Create a Task', () => {
   const task_valid = {

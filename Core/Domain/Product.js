@@ -3,16 +3,18 @@ import DomainError from '#errors/Domain-error.js'
 class Product {
   #id
   #name
+  #points
   #description
   #category
   
   constructor(product){
     this.#validate(product)
 
-    const {id, name, description, category} = product
+    const {id, name, points, description, category} = product
 
     this.#id = id
     this.#name = name
+    this.#points = points
     this.#category = category
     this.#description = description
   }
@@ -31,20 +33,32 @@ class Product {
     if(Array.isArray(product)) throw new DomainError('Not an object')
     if(product === null) throw new DomainError('Not an object')
     
-    const {id, name, description, category} = product
+    const {id, name, points, description, category} = product
 
     for(let k of Object.keys(product)){
-      if(!['id', 'name', 'description', 'category'].includes(k)) throw new DomainError('Property out of scope')
+      if(!['id', 'name', 'description', 'category', 'points'].includes(k)) throw new DomainError('Property out of scope')
     }
 
     validateType(id, 'string', 'Invalid property type: id')
+    
     validateType(name, 'string', 'Invalid property type: name')
+    
+    validateType(points, 'number', 'Invalid property type: points')
+    if(!Number.isFinite(points)) throw new DomainError('Invalid property type: points')
+    if(points === null) throw new DomainError('Invalid property type: points')
+    
     validateType(description, 'string', 'Invalid property type: description')
+    
     validateType(category, 'string', 'Invalid property type: category')
 
     validateLength(id, 100, 'Property length is too large: id')
+    
     validateLength(name, 50, 'Property length is too large: name')
+
+    if(points > 100) throw new DomainError('Property value out of scope: points')
+    
     validateLength(category, 20, 'Property length is too large: category')
+    
     validateLength(description, 150, 'Property length is too large: description')
   }
 
@@ -75,6 +89,17 @@ class Product {
     return true
   }
 
+  setPoints(points) {
+    if (
+      typeof points !== 'number' ||
+      !Number.isFinite(points) ||
+      points > 100
+    ) return false
+
+    this.#points = points
+    return true
+}
+
   get id(){
     return this.#id
   }
@@ -85,6 +110,10 @@ class Product {
   
   get description(){
     return this.#description
+  }
+  
+  get points(){
+    return this.#points
   }
   
   get category(){
