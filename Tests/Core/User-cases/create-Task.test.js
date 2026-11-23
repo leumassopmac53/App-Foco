@@ -24,10 +24,19 @@ describe('Use Case Suite: Create a Task', () => {
     assert.ok(task.ok)
   })
 
-  it('create a Task invalid: parameter is a string', async () => {
-    const task = await createATask('invalid-string-parameter')
+  it('create a Task invalid: parameter', async () => {
+    const paramaters = [
+      null,
+      [],
+      'string',
+      10,
+    ]
 
-    assert.equal("Not an object", task.message)
+    for(let p of paramaters){
+      const task = await createATask(p)
+
+      assert.equal('Not an Object', task.message)
+    }
   })
 
   it('create a Task invalid: type invalid id', async () => {
