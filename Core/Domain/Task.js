@@ -32,7 +32,6 @@ export default class Task {
   }
 
   #validateInput(task){
-    const {id, title, points, completed} = task
 
     function validateType(vari, type, n){
       if(typeof vari !== type) throw new DomainError(n)
@@ -43,10 +42,12 @@ export default class Task {
       else if(vari.length === 0) throw new DomainError(n)
     }
 
-    if(typeof task !== 'object') throw new DomainError("Not an object")
-    if(Array.isArray(task)) throw new DomainError("Not an object")
-    if(task === null) throw new DomainError("Not an object")
+    if(typeof task !== 'object') throw new DomainError("Not an Object")
+    if(Array.isArray(task)) throw new DomainError("Not an Object")
+    if(task === null) throw new DomainError("Not an Object")
 
+    const {id, title, points, completed} = task
+    
     for(let k of Object.keys(task)){
       if(!['id','title', 'points', 'completed'].includes(k)) throw new DomainError(`Property out of scope`)
     }
