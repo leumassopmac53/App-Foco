@@ -1,13 +1,12 @@
 import Task from '#domain/Task.js'
-import TaskRepository from '#repository/repository-Task.js'
 
-export default async function createTask(t){
+export default async function createTask(t, repository){
   try {
     const task = new Task(t)
 
     const {id, title, points, completed} = task
     
-    await TaskRepository.add({
+    await repository.add({
       id, title, points, completed
     })
 

@@ -1,23 +1,23 @@
 import RepositoryError from '#errors/Repository-error.js'
 
-export default class TaskRepository {
-  static async add(task) {
+export default class Repository {
+  async add(task) {
     throw new RepositoryError("Method 'add()' must be implemented.")
   }
 
-  static async save(task) {
+  async save(task) {
     throw new RepositoryError("Method 'save()' must be implemented.")
   }
 
-  static async findById(id) {
+  async findById(id) {
     throw new RepositoryError("Method 'findById()' must be implemented.")
   }
 
-  static async findAll() {
+  async findAll() {
     throw new RepositoryError("Method 'findAll()' must be implemented.")
   }
 
-  static async delete(id) {
+  async delete(id) {
     throw new RepositoryError("Method 'delete()' must be implemented.")
   }
 }

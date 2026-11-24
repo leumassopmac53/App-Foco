@@ -1,12 +1,14 @@
+
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import Task from '#domain/Task.js'
 import createATask from '#use-cases/create-Task.js'
-import repositoryTask from '#repository/repository-Task.js'
+import Repository from '#repository'
 
 let bank = {}
 
-repositoryTask.add = task =>{
+const repository = new Repository()
+
+repository.add = task => {
   bank[task.id] = task
 }
 
@@ -19,7 +21,7 @@ describe('Use Case Suite: Create a Task', () => {
   }
 
   it('create a Task', async () => {
-    const task = await createATask(task_valid)
+    const task = await createATask(task_valid, repository)
 
     assert.ok(task.ok)
   })
@@ -33,50 +35,50 @@ describe('Use Case Suite: Create a Task', () => {
     ]
 
     for(let p of paramaters){
-      const task = await createATask(p)
+      const task = await createATask(p, repository)
 
       assert.equal('Not an Object', task.message)
     }
   })
 
   it('create a Task invalid: type invalid id', async () => {
-    const task = await createATask({ ...task_valid, id: 12 })
+    const task = await createATask({ ...task_valid, id: 12 }, repository)
 
     assert.equal('Invalid property type: id', task.message)
   })
 
   it('create a Task invalid: type invalid title', async () => {
-    const task = await createATask({ ...task_valid, title: 10 })
+    const task = await createATask({ ...task_valid, title: 10 }, repository)
 
     assert.equal('Invalid property type: title', task.message)
   })
 
   it('create a Task invalid: type invalid points', async () => {
-    const task = await createATask({ ...task_valid, points: '10' })
+    const task = await createATask({ ...task_valid, points: '10' }, repository)
 
     assert.equal('Invalid property type: points', task.message)
   })
 
   it('create a Task invalid: type invalid completed', async () => {
-    const task = await createATask({ ...task_valid, completed: 0 })
+    const task = await createATask({ ...task_valid, completed: 0 }, repository)
 
     assert.equal('Invalid property type: completed', task.message)
   })
 
   it('create a Task invalid: id too large', async () => {
-    const task = await createATask({ ...task_valid, id: 'a'.repeat(1000) })
+    const task = await createATask({ ...task_valid, id: 'a'.repeat(1000) }, repository)
 
     assert.equal('Property length is too large: id', task.message)
   })
 
   it('create a Task invalid: title too large', async () => {
-    const task = await createATask({ ...task_valid, title: 'Test '.repeat(1000) })
+    const task = await createATask({ ...task_valid, title: 'Test '.repeat(1000) }, repository)
 
     assert.equal('Property length is too large: title', task.message)
   })
 
   it('create a Task invalid: points too large', async () => {
-    const task = await createATask({ ...task_valid, points: 999999999 })
+    const task = await createATask({ ...task_valid, points: 999999999 }, repository)
 
     assert.equal('Property length is too large: points', task.message)
   })

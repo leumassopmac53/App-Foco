@@ -1,11 +1,13 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import deleteATask from '#use-cases/create-Task.js'
-import repositoryTask from '#repository/repository-Task.js'
+import deleteATask from '#use-cases/delete-Task.js'
+import Repository from '#repository'
 
 let bank = {}
 
-repositoryTask.delete = id => {
+const repository = new Repository()
+
+repository.delete = async id => {
   const task = bank[ id ]
 
   if (task) {
@@ -18,7 +20,7 @@ repositoryTask.delete = id => {
 }
 
 describe('use case: delete a Task', () => {
-  it('should delete a Task', () => {
+  it('should delete a Task', async () => {
     bank.JS = {
       id: 'JS',
       title: 'JS',
@@ -26,11 +28,15 @@ describe('use case: delete a Task', () => {
       points: 15
     }
 
-    assert.ok(repositoryTask.delete('JS').ok)
+    const result = await deleteATask('JS', repository)
+
+    console.log(result.message)
+    
+    assert.ok(result.ok)
   })
 
-  it('should not delete a Task that does not exist', () => {
-    const result = repositoryTask.delete('HTML')
+  it('should not delete a Task that does not exist', async () => {
+    const result = await deleteATask('HTML', repository)
 
     assert.equal(result.ok, false)
   })

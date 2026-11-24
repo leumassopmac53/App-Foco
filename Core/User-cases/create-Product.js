@@ -1,13 +1,12 @@
 import Product from '#domain/Product.js'
-import ProductRepository from '#repository/repository-Product.js'
 
-export default async function createTask(p){
+export default async function createProduct(p, repository){
   try {
     const product = new Product(p)
 
     const {id, name, points, category ,description} = product
     
-    await ProductRepository.add({
+    await repository.add({
       id, name, points, description, category
     })
 

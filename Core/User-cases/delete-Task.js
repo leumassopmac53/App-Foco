@@ -1,9 +1,8 @@
 import Task from '#domain/Task.js'
-import Repository from '#repository/repository-Task.js'
 
-export default async function deleteTask(id) {
+export default async function deleteTask(id, repository) {
   try {
-    return await Repository.delete(id)
+    return await repository.delete(id)
   }
   catch (error) {
     switch (error.name) {

@@ -9,7 +9,7 @@
     "#domain/*": "./Core/Domain/*",
     "#errors/*": "./Core/Errors/*",
     "#use-cases/*": "./Core/User-cases/*",
-    "#repository/*": "./Core/Repositories/*"
+    "#repository": "./Core/Repositories/repository.js"
   },
   "scripts": {
     "test": "node --test"
