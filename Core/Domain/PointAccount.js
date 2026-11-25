@@ -11,7 +11,7 @@ export default class PointAccount {
     if(amount < 0) return false
 
     if(amount > this.#maxDebit) return false
-    if((this.#balance - amount) < this.minBalance) return false
+    if((this.#balance - amount) < this.#minBalance) return false
 
     this.#balance -= amount
     return true
@@ -23,7 +23,7 @@ export default class PointAccount {
     if(amount < 0) return false
 
     if(amount > this.#maxCredit) return false
-    if((this.#balance + amount) > this.minBalance) return false
+    if((this.#balance + amount) > this.#maxBalance) return false
 
     this.#balance += amount
     return true
