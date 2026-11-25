@@ -1,6 +1,14 @@
 import RepositoryError from '#errors/Repository-error.js'
 
 export default class Repository {
+  async getBalance(){
+    
+  }
+  
+  async setBalance(){
+    
+  }
+  
   async add(task) {
     throw new RepositoryError("Method 'add()' must be implemented.")
   }
