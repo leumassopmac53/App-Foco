@@ -1,3 +1,5 @@
+import DomainError from '#errors/Domain-error.js'
+
 export default class PointAccount {
   #balance
   #maxBalance
@@ -9,8 +11,9 @@ export default class PointAccount {
     if (
       typeof config !== 'object' ||
       config === null
-    ) throw new DomainError(config, "isn't object")
+    ) throw new DomainError("config, isn't object")
 
+    
     if(
       !Object.hasOwn(config, 'balance') ||
       !Object.hasOwn(config, 'minBalance') ||
@@ -19,22 +22,18 @@ export default class PointAccount {
       !Object.hasOwn(config, 'maxCredit') 
     ) throw new DomainError(config, 'invalid')
 
-    Object.keys(config).forEach(k => {
-      if (![
+    for(let k of Object.keys(config)){
+      if(![
         'balance',
-        'maxBalance',
         'minBalance',
-        'maxDebit',
+        'maxBalance',
         'maxCredit',
-      ].includes(k)) throw new DomainError('property', k, 'invalid')
-        
-        if (
-          typeof k !== 'number' ||
-          !Number.isFinite(k)
-        ) throw new DomainError(config, "isn't number")
-    })
-
-
+        'maxDebit'
+      ].includes(k)){
+        throw new DomainError(`property ${k} invalid`)
+        break
+      }
+    }
   }
 
   constructor(config){
