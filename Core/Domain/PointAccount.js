@@ -75,4 +75,18 @@ export default class PointAccount {
   get balance() {
     return this.#balance
   }
+  
+  get maxDebit() {
+    return this.#maxDebit
+  }
+  
+  get maxCredit() {
+    return this.#maxCredit
+  }
+  get maxBalance() {
+    return this.#maxBalance
+  }
+  get minBalance() {
+    return this.#minBalance
+  }
 }
