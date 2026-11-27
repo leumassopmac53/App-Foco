@@ -42,7 +42,7 @@ export default async function completeTask(id, repository) {
         }
         break
 
-      case 'DomainError':
+      case 'RepositoryError':
         return {
           ok: false,
           name: erro.name,

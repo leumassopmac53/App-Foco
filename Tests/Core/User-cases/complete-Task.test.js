@@ -42,9 +42,10 @@ describe('use case: complete a task', () => {
       return {ok: true, message: "task's delete"}
     }
     
-    await completeATask('task_01', repository)
+    const result = await completeATask('task_01', repository)
 
     assert.equal(20, config_balance.balance)
+    assert.ok(result.ok)
   })
   
   it("case invalid: repository isn't intance of entity Repository", async () => {
@@ -129,11 +130,50 @@ describe('use case: complete a task', () => {
       return {ok: true, message: "task's delete"}
     }
 
-    await completeATask('task_01', repository)
+    const result = await completeATask('task_01', repository)
 
     assert.equal(0, config_balance.balance)
+    assert.ok(!result.ok)
   })
   
+  it("case invalid: task not found", async () => {
+    const bank = {}
+
+    let config_balance = {
+      balance: 0,
+      maxBalance: 1000,
+      minBalance: 0,
+      maxDebit: 50,
+      maxCredit: 50
+    }
+
+    const repository = new Repository()
+
+    repository.findById = async id => {
+      const task = bank[ id ]
+
+      if (!task) return { ok: false, message: 'not found' }
+
+      return { ok: true, content: task }
+    }
+
+    repository.getPointAccount = async () => config_balance
+
+    repository.setPointAccount = async config => config_balance = config
+
+    repository.delete = async id =>{
+      if(!Object.hasOwn(bank, id)) return {ok: false, message: "task dont't delete"}
+      
+      return {ok: true, message: "task's delete"}
+    }
+    
+    const result = await completeATask('task_99', repository)
+
+    assert.equal(result.ok, false)
+    assert.equal(result.message, 'not found')
+    assert.equal(0, config_balance.balance)
+  })
+
   it('case invalid: task points out scope', async () => {
     const bank = {
       task_01: {
